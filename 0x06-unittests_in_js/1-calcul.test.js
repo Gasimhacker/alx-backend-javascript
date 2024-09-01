@@ -1,37 +1,100 @@
-const assert = require("assert");
-const { it, describe } = require("mocha");
-const calculateNumber = require("./1-calcul");
+const { describe, it } = require('mocha');
 
-describe("calculateNumber()", function() {
+const assert = require('assert');
+const calculateNumber = require('./1-calcul');
 
-    it(`checking if numbers round`, function() {
-      const res = calculateNumber("SUM", 1, 2);
-      assert.strictEqual(res, 3);
+describe('calculateNumber', () => {
+  describe('When type === "SUM"', () => {
+    it('should add two normal integers', () => {
+      assert.strictEqual(calculateNumber('SUM', 1, 2), 3);
     });
-    it('equal positive numbers (alternate)', () => {
-      assert.strictEqual(calculateNumber('SUM', 2.3, 1.8), 4);
+
+    it('should round the first number up', () => {
+      assert.strictEqual(calculateNumber('SUM', 1.5, 2), 4);
     });
-    it(`checking if numbers round`, function() {
-      const res = calculateNumber("SUBTRACT", 1.4, 2.2);
-      assert.strictEqual(res, -1);
+
+    it('should round the first number up', () => {
+      assert.strictEqual(calculateNumber('SUM', 1.6, 2), 4);
     });
-    it(`checking if numbers round`, function() {
-      const res = calculateNumber("SUBTRACT", 4.9, 2.7);
-      assert.strictEqual(res, 2);
+
+    it('should round the first number down', () => {
+      assert.strictEqual(calculateNumber('SUM', 1.4, 2), 3);
     });
-    it('equal negative numbers (alternate)', () => {
-      assert.strictEqual(calculateNumber('SUM', -2.3, -1.8), -4);
+
+    it('should round the second number up', () => {
+      assert.strictEqual(calculateNumber('SUM', 1, 2.6), 4);
     });
-    it(`checking if numbers round`, function() {
-      const res = calculateNumber("DIVIDE", 4, 2);
-      assert.strictEqual(res, 2);
+
+    it('should round the second number down', () => {
+      assert.strictEqual(calculateNumber('SUM', 1, 2.4), 3);
     });
-    it(`checking if numbers round`, function() {
-      const res = calculateNumber("DIVIDE", 1.7, 0);
-      assert.strictEqual(res, "Error");
+
+    it('should add two rounded numbers', () => {
+      assert.strictEqual(calculateNumber('SUM', 1.5, 1.5), 4);
     });
-    it(`checking if numbers round`, function() {
-      const res = calculateNumber("DIVIDE", 1.4, 4.6);
-      assert.strictEqual(res, 0.2);
+  });
+
+  describe('When type === "SUBTRACT"', () => {
+    it('should subtract two normal integers', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1, 2), -1);
     });
+
+    it('should round the first number up', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.5, 2), 0);
+    });
+
+    it('should round the first number up', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.6, 2), 0);
+    });
+
+    it('should round the first number down', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.4, 2), -1);
+    });
+
+    it('should round the second number up', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1, 2.6), -2);
+    });
+
+    it('should round the second number down', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1, 2.4), -1);
+    });
+
+    it('should subtract two rounded numbers', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.5, 1.5), 0);
+    });
+  });
+
+  describe('When type === "DIVIDE"', () => {
+    it('should divide two normal integers', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 4, 2), 2);
+    });
+
+    it('should round the first number up', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 3.5, 2), 2);
+    });
+
+    it('should round the first number up', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 3.6, 2), 2);
+    });
+
+    it('should round the first number down', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 4.4, 2), 2);
+    });
+
+    it('should round the second number up', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 2, 3.6), 0.5);
+    });
+
+    it('should round the second number down', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 1, 2.4), 0.5);
+    });
+
+    it('should divide two rounded numbers', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 1.5, 1.5), 1);
+    });
+
+    it('should not divide by zero', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 1.5, 0), 'Error');
+    });
+  });
 });
