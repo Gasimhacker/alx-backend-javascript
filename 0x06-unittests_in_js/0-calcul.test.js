@@ -25,7 +25,7 @@ describe('calculateNumber', () => {
   });
 
   it('should round the second number down', () => {
-    assert.strictEqual(calculateNumber(1, 2.6), 4);
+    assert.strictEqual(calculateNumber(1, 2.4), 3);
   });
 
   it('should add two rounded numbers', () => {
