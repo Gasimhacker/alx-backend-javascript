@@ -8,7 +8,7 @@ describe('calculateNumber', () => {
     assert.strictEqual(calculateNumber(1, 2), 3);
   });
 
-  it('should round 0.5 to 2', () => {
+  it('should round 1.5 to 2', () => {
     assert.strictEqual(calculateNumber(1.5, 2), 4);
   });
 
@@ -16,8 +16,12 @@ describe('calculateNumber', () => {
     assert.strictEqual(calculateNumber(1.6, 2), 4);
   });
 
-  it('should round 1.7 to 2', () => {
-    assert.strictEqual(calculateNumber(2, 1.7), 4);
+  it('should round 1.4 to 1', () => {
+    assert.strictEqual(calculateNumber(1.4, 2), 3);
+  });
+
+  it('should round the second number', () => {
+    assert.strictEqual(calculateNumber(1, 2.6), 4);
   });
 
   it('should add two rounded numbers', () => {
