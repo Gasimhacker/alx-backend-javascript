@@ -3,7 +3,7 @@ const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const sinon = require('sinon');
 const Utils = require('./utils');
-const sendPaymentRequestToApi = require('./3-payment');
+const sendPaymentRequestToApi = require('./4-payment');
 
 describe('sendPaymentRequestToApi', () => {
   it('should make sure that the math used for sendPaymentRequestToApi is the same as Utils.calculateNumber', () => {
