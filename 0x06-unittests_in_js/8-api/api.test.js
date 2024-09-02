@@ -1,28 +1,30 @@
-const request = require("request");
-const {describe, it} = require("mocha");
-const expect = require("chai").expect;
+const { describe, it } = require('mocha');
 
-describe("Index page", function() {
-    const options = {
-	url: "http://localhost:7865/",
-	method: "GET"
-    }
-    it("Check the correct status code", function(done) {
-	request(options, function(err, res, body) {
-	    expect(res.statusCode).to.equal(200);
-	    done();
-	});
+const { expect } = require('chai');
+const request = require('request');
+
+describe('Index page', () => {
+  it('should return the Correct status code', (done) => {
+    request('http://localhost:7865', (error, response) => {
+      expect(response.statusCode).to.equal(200);
+
+      done();
     });
-    it("Check the correct content", function(done) {
-	request(options, function(err, res, body) {
-	    expect(body).to.contain("Welcome to the payment system");
-	    done();
-	});
+  });
+
+  it('should return the Correct result', (done) => {
+    request('http://localhost:7865', (error, response, body) => {
+      expect(body).to.contain('Welcome to the payment system');
+
+      done();
     });
-    it("Check the correct content length", function(done) {
-	request(options, function(err, res, body) {
-	    expect(res.headers['content-length']).to.equal('29');
-	    done();
-	});
+  });
+
+  it('should return the Correct body length', (done) => {
+    request('http://localhost:7865', (error, response, body) => {
+      expect(response.headers['content-length']).to.equal('29');
+
+      done();
     });
+  });
 });
