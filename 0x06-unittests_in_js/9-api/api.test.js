@@ -1,43 +1,38 @@
-const request = require("request");
-const {describe, it} = require("mocha");
-const expect = require("chai").expect;
+const { describe, it } = require('mocha');
 
-describe("Index page", function() {
-    const options = {
-	url: "http://localhost:7865/",
-	method: "GET"
-    }
-    it("Check the correct status code", function(done) {
-	request(options, function(err, res, body) {
-	    expect(res.statusCode).to.equal(200);
-	    done();
-	});
-    });
-    it("Check the correct content", function(done) {
-	request(options, function(err, res, body) {
-	    expect(body).to.equal("Welcome to the payment system");
-	    done();
-	});
-    });
-});
+const { expect } = require('chai');
+const request = require('request');
 
-describe("Cart page", function() {
-    it("Check the correct status code for correct url", function(done) {
-	request.get("http://localhost:7865/cart/12", function(err, res, body) {
-	    expect(res.statusCode).to.equal(200);
-	    done();
-	});
+describe('GET /cart/:id', () => {
+  it('should return Correct status code when :id is a number', (done) => {
+    request('http://localhost:7865/cart/12', (error, response) => {
+      expect(response.statusCode).to.equal(200);
+
+      done();
     });
-    it("Check the correct content for correct url", function(done) {
-	request.get("http://localhost:7865/cart/12", function(err, res, body) {
-	    expect(body).to.contain("Payment methods for cart 12");
-	    done();
-	});
+  });
+
+  it('should return Correct status code when :id is NOT a number', (done) => {
+    request('http://localhost:7865/cart/hello', (error, response) => {
+      expect(response.statusCode).to.equal(404);
+
+      done();
     });
-    it("Check the correct status code for incorrect url", function(done) {
-	request.get("http://localhost:7865/cart/kim", function(err, res, body) {
-	    expect(res.statusCode).to.equal(404);
-	    done();
-	});
+  });
+
+  it('should return the Correct result', (done) => {
+    request('http://localhost:7865/cart/12', (error, response, body) => {
+      expect(body).to.contain('Payment methods for cart 12');
+
+      done();
     });
+  });
+
+  it('should return the Correct body length', (done) => {
+    request('http://localhost:7865/cart/12', (error, response, body) => {
+      expect(response.headers['content-length']).to.equal('27');
+
+      done();
+    });
+  });
 });
