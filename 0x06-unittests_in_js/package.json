@@ -18,6 +18,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^28.8.1",
     "jest": "^24.9.0",
-    "mocha": "^10.7.3"
+    "mocha": "^10.7.3",
+    "sinon": "^18.0.0"
   }
 }
