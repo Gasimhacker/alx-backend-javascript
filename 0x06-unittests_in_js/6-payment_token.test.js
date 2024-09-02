@@ -1,13 +1,15 @@
-const getPaymentTokenFromAPI = require("./6-payment_token");
-const {describe, it} = require("mocha");
-const expect = require("chai").expect;
+const { describe, it } = require('mocha');
 
-describe("getPaymentTokenFromAPI", function() {
-    it("Async testing with done callback, payment.", function(done) {
-	getPaymentTokenFromAPI(true)
-	    .then((data) => {
-		expect(data).to.have.property('data');
-		done();
-	    });
-    });
+const { expect } = require('chai');
+const getPaymentTokenFromAPI = require('./6-payment_token');
+
+describe('getPaymentTokenFromAPI', () => {
+  it('should return a resolved promise', (done) => {
+    getPaymentTokenFromAPI(true)
+      .then((res) => {
+        expect(res).to.have.property('data');
+
+        done();
+      });
+  });
 });
